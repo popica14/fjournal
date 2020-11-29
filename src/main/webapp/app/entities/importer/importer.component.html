@@ -1,0 +1,76 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="foodJournalApp.importer.home.title">Importers</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-importer" [routerLink]="['/importer/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="foodJournalApp.importer.home.createLabel">
+            Create a new Importer
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="importers?.length === 0">
+        <span jhiTranslate="foodJournalApp.importer.home.notFound">No importers found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="importers && importers.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="foodJournalApp.importer.file">File</span></th>
+                    <th scope="col" ><span jhiTranslate="foodJournalApp.importer.importDate">Import Date</span></th>
+                    <th scope="col" ><span jhiTranslate="foodJournalApp.importer.separator">Separator</span></th>
+                    <th scope="col" ><span jhiTranslate="foodJournalApp.importer.owner">Owner</span></th>
+                    <th scope="col" ><span jhiTranslate="foodJournalApp.importer.uploader">Uploader</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let importer of importers ;trackBy: trackId">
+                    <td><a [routerLink]="['/importer', importer.id, 'view']">{{ importer.id }}</a></td>
+                    <td>
+                        <a *ngIf="importer.file" (click)="openFile(importer.fileContentType, importer.file)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="importer.file">{{ importer.fileContentType }}, {{ byteSize(importer.file) }}</span>
+                    </td>
+                    <td>{{ importer.importDate | date:'medium' }}</td>
+                    <td>{{ importer.separator }}</td>
+                    <td>
+                        {{ importer.ownerLogin }}
+                    </td>
+                    <td>
+                        {{ importer.uploaderLogin }}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/importer', importer.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/importer', importer.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(importer)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

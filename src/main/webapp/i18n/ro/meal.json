@@ -1,0 +1,31 @@
+{
+  "foodJournalApp": {
+    "meal": {
+      "home": {
+        "title": "Meals",
+        "createLabel": "Creeare o nouă entitate Meal",
+        "createOrEditLabel": "Creeare sau editare Meal",
+        "notFound": "No Meals found"
+      },
+      "created": "A fost creată o nouă entitate Meal cu identificatorul {{ param }}",
+      "updated": "Meal cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Meal cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Meal {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal"
+      },
+      "description": "Description",
+      "quantity": "Quantity",
+      "portionSize": "Portion Size",
+      "type": "Type",
+      "date": "Date",
+      "photo": "Photo",
+      "calories": "Calories",
+      "comment": "Comment",
+      "recipe": "Recipe",
+      "myMeal": "My Meal"
+    }
+  }
+}

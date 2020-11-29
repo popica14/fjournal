@@ -1,0 +1,157 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-meal-heading" jhiTranslate="foodJournalApp.meal.home.createOrEditLabel">Create or edit a Meal
+            </h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodJournalApp.meal.description"
+                        for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        formControlName="description" />
+                    <div
+                        *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                            <label for="id" jhiTranslate="global.field.id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.quantity"
+                                for="field_quantity">Quantity</label>
+                            <input type="number" class="form-control" name="quantity" id="field_quantity"
+                                formControlName="quantity" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.portionSize"
+                                for="field_portionSize">Portion Size</label>
+                            <input type="number" class="form-control" name="portionSize" id="field_portionSize"
+                                formControlName="portionSize" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.type"
+                                for="field_type">Type</label>
+                            <select class="form-control" name="type" formControlName="type" id="field_type">
+                                <option value="SNACK">{{ 'foodJournalApp.MealType.SNACK' | translate }}</option>
+                                <option value="BREAKFAST">{{ 'foodJournalApp.MealType.BREAKFAST' | translate }}</option>
+                                <option value="LUNCH">{{ 'foodJournalApp.MealType.LUNCH' | translate }}</option>
+                                <option value="DINNER">{{ 'foodJournalApp.MealType.DINNER' | translate }}</option>
+                            </select>
+                            <div
+                                *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required"
+                                    jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.date"
+                                for="field_date">Date</label>
+                            <div class="d-flex">
+                                <input id="field_date" type="datetime-local" class="form-control" name="date"
+                                    formControlName="date" placeholder="YYYY-MM-DD HH:mm" />
+                            </div>
+                            <div
+                                *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required"
+                                    jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                    [hidden]="!editForm.get('date')?.errors?.ZonedDateTimelocal"
+                                    jhiTranslate="entity.validation.ZonedDateTimelocal">
+                                    This field should be a date and time.
+                                </small>
+                            </div>
+                        </div>
+
+                        
+
+                        
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.calories"
+                                for="field_calories">Calories</label>
+                            <input type="number" class="form-control" name="calories" id="field_calories"
+                                formControlName="calories" />
+                        </div>
+                        
+
+                        <!-- <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.myMeal" for="field_myMeal">My Meal</label>
+                            <select class="form-control" id="field_myMeal" name="myMeal" formControlName="myMealId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
+                            </select>
+                        </div> -->
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.comment"
+                                for="field_comment">Comment</label>
+                            <input type="text" class="form-control" name="comment" id="field_comment"
+                                formControlName="comment" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.recipe" for="field_recipe">Recipe</label>
+                            <input type="text" class="form-control" name="recipe" id="field_recipe"
+                                   formControlName="recipe"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="foodJournalApp.meal.photo"
+                                for="field_photo">Photo</label>
+                            <div>
+                                <img [src]="'data:' + editForm.get('photoContentType')!.value + ';base64,' + editForm.get('photo')!.value"
+                                    style="max-height: 100px;" *ngIf="editForm.get('photo')!.value" alt="meal image" />
+                                <div *ngIf="editForm.get('photo')!.value" class="form-text text-danger clearfix">
+                                    <span class="pull-left">{{ editForm.get('photoContentType')!.value }},
+                                        {{ byteSize(editForm.get('photo')!.value) }}</span>
+                                    <button type="button"
+                                        (click)="clearInputImage('photo', 'photoContentType', 'file_photo')"
+                                        class="btn btn-secondary btn-xs pull-right">
+                                        <fa-icon icon="times"></fa-icon>
+                                    </button>
+                                </div>
+                                <input type="file" id="file_photo" (change)="setFileData($event, 'photo', true)"
+                                    accept="image/*" jhiTranslate="entity.action.addimage" />
+                            </div>
+                            <input type="hidden" class="form-control" name="photo" id="field_photo"
+                                formControlName="photo" />
+                            <input type="hidden" class="form-control" name="photoContentType"
+                                id="field_photoContentType" formControlName="photoContentType" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                    class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

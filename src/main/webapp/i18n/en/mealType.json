@@ -1,0 +1,11 @@
+{
+  "foodJournalApp": {
+    "MealType": {
+      "null": "",
+      "SNACK": "SNACK",
+      "BREAKFAST": "BREAKFAST",
+      "LUNCH": "LUNCH",
+      "DINNER": "DINNER"
+    }
+  }
+}

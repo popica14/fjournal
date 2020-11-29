@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="importer">
+            <h2><span jhiTranslate="foodJournalApp.importer.detail.title">Importer</span> {{ importer.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="foodJournalApp.importer.file">File</span></dt>
+                <dd>
+                    <div *ngIf="importer.file">
+                        <a (click)="openFile(importer.fileContentType, importer.file)" jhiTranslate="entity.action.open">open</a>
+                        {{ importer.fileContentType }}, {{ byteSize(importer.file) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.importer.importDate">Import Date</span></dt>
+                <dd>
+                    <span>{{ importer.importDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.importer.separator">Separator</span></dt>
+                <dd>
+                    <span>{{ importer.separator }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.importer.owner">Owner</span></dt>
+                <dd>
+                    {{ importer.ownerLogin }}
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.importer.uploader">Uploader</span></dt>
+                <dd>
+                    {{ importer.uploaderLogin }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/importer', importer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

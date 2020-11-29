@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="weight">
+            <h2><span jhiTranslate="foodJournalApp.weight.detail.title">Weight</span> {{ weight.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="foodJournalApp.weight.value">Value</span></dt>
+                <dd>
+                    <span>{{ weight.value }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.weight.date">Date</span></dt>
+                <dd>
+                    <span>{{ weight.date }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.weight.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="weight.photo">
+                        <a (click)="openFile(weight.photoContentType, weight.photo)">
+                            <img [src]="'data:' + weight.photoContentType + ';base64,' + weight.photo" style="max-width: 100%;" alt="weight image"/>
+                        </a>
+                        {{ weight.photoContentType }}, {{ byteSize(weight.photo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.weight.observation">Observation</span></dt>
+                <dd>
+                    <span>{{ weight.observation }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.weight.myWeigth">My Weigth</span></dt>
+                <dd>
+                    {{ weight.myWeigthLogin }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/weight', weight.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

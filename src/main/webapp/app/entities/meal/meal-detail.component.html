@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="meal">
+            <h2><span jhiTranslate="foodJournalApp.meal.detail.title">Meal</span> {{ meal.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="foodJournalApp.meal.description">Description</span></dt>
+                <dd>
+                    <span>{{ meal.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.quantity">Quantity</span></dt>
+                <dd>
+                    <span>{{ meal.quantity }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.portionSize">Portion Size</span></dt>
+                <dd>
+                    <span>{{ meal.portionSize }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'foodJournalApp.MealType.' + meal.type }}">{{ meal.type }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.date">Date</span></dt>
+                <dd>
+                    <span>{{ meal.date }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="meal.photo">
+                        <a (click)="openFile(meal.photoContentType, meal.photo)">
+                            <img [src]="'data:' + meal.photoContentType + ';base64,' + meal.photo" style="max-width: 100%;" alt="meal image"/>
+                        </a>
+                        {{ meal.photoContentType }}, {{ byteSize(meal.photo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.calories">Calories</span></dt>
+                <dd>
+                    <span>{{ meal.calories }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.comment">Comment</span></dt>
+                <dd>
+                    <span>{{ meal.comment }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.recipe">Recipe</span></dt>
+                <dd>
+                    <span>{{ meal.recipe }}</span>
+                </dd>
+                <dt><span jhiTranslate="foodJournalApp.meal.myMeal">My Meal</span></dt>
+                <dd>
+                    {{ meal.myMealLogin }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal', meal.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

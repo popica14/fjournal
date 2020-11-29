@@ -1,0 +1,56 @@
+
+entity Meal {
+	description String required
+    quantity Long
+    portionSize String
+    type MealType required
+    date Instant required
+    photo ImageBlob
+    calories Long
+    comment String
+    recipe String
+}
+
+entity Weight{
+    value Float min(40) max(150) required
+	date Instant 
+    photo ImageBlob 
+    observation String
+}
+
+entity Importer
+{
+    file AnyBlob
+    importDate Instant required
+    separator String
+}
+
+enum MealType {
+    SNACK, BREAKFAST, LUNCH, DINNER
+}
+
+
+// defining multiple OneToMany relationships with comments
+relationship ManyToOne {
+	Meal{myMeal(login)} to User
+    Weight{myWeigth(login)} to User
+    Importer{owner(login)} to User
+    Importer{uploader(login)} to User
+}
+
+
+// defining multiple oneToOne relationships
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+paginate Meal with pagination
+
+//Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+//except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

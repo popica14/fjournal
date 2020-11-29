@@ -1,0 +1,27 @@
+{
+  "foodJournalApp": {
+    "importer": {
+      "home": {
+        "title": "Importers",
+        "createLabel": "Creeare o nouă entitate Importer",
+        "createOrEditLabel": "Creeare sau editare Importer",
+        "notFound": "No Importers found"
+      },
+      "created": "A fost creată o nouă entitate Importer cu identificatorul {{ param }}",
+      "updated": "Importer cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Importer cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Importer {{ id }}?"
+      },
+      "detail": {
+        "title": "Importer"
+      },
+      "file": "File",
+      "importDate": "Import Date",
+      "separator": "Separator",
+      "owner": "Owner",
+      "uploader": "Uploader",
+      "importFor": "Import journal for user:"
+    }
+  }
+}

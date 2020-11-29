@@ -1,0 +1,11 @@
+id;value;date;photo;photo_content_type;observation
+1;108;2020-10-18T02:34:04;../fake-data/blob/hipster.png;image/png;Bike
+2;89;2020-10-18T08:49:56;../fake-data/blob/hipster.png;image/png;Checking Account
+3;96;2020-10-18T04:47:45;../fake-data/blob/hipster.png;image/png;Handmade
+4;40;2020-10-17T13:13:10;../fake-data/blob/hipster.png;image/png;GB Direct Handcrafted
+5;61;2020-10-18T08:19:16;../fake-data/blob/hipster.png;image/png;circuit Crest
+6;51;2020-10-17T14:24:20;../fake-data/blob/hipster.png;image/png;payment Aruban Guilder
+7;44;2020-10-17T20:17:53;../fake-data/blob/hipster.png;image/png;time-frame Generic Wooden Cheese New Caledonia
+8;134;2020-10-17T17:37:43;../fake-data/blob/hipster.png;image/png;turn-key violet schemas
+9;64;2020-10-18T08:19:23;../fake-data/blob/hipster.png;image/png;Integrated
+10;47;2020-10-18T10:21:11;../fake-data/blob/hipster.png;image/png;alarm functionalities

@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.pop.fjournal",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.3",
+    "applicationType": "monolith",
+    "baseName": "food_journal",
+    "packageName": "com.pop.fjournal",
+    "packageFolder": "com/pop/fjournal",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZjMzNTMyNTAxOWQyYmI4NzE4YTQwMGJjZWI0YWE1ZGZlOWNkNWEzNGM5YjA5YTM0OWEzMWVkMmJiYTI2OWQ4NTA5ZjQ0OWE2NzFlMGYwOWQ2MWU1NDVlNzc2MWYzOGNlZTk4YmU4NjFjZjE2YjRlZTBjM2QwMzdhZDc4YzA1N2I=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1602424866188,
+    "testFrameworks": ["cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "ro"],
+    "blueprints": []
+  }
+}

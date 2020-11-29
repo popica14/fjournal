@@ -1,0 +1,45 @@
+{
+  "name": "Weight",
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max", "required"],
+      "fieldValidateRulesMin": "40",
+      "fieldValidateRulesMax": "150"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "observation",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "weight",
+      "relationshipName": "myWeigth",
+      "otherEntityField": "login"
+    }
+  ],
+  "changelogDate": "20201018102652",
+  "entityTableName": "weight",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

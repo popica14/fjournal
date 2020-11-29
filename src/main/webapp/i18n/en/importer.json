@@ -1,0 +1,28 @@
+{
+  "foodJournalApp": {
+    "importer": {
+      "home": {
+        "title": "Importers",
+        "createLabel": "Create a new Importer",
+        "createOrEditLabel": "Create or edit a Importer",
+        "notFound": "No Importers found"
+      },
+      "created": "A new Importer is created with identifier {{ param }}",
+      "updated": "A Importer is updated with identifier {{ param }}",
+      "deleted": "A Importer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Importer {{ id }}?"
+      },
+      "detail": {
+        "title": "Importer"
+      },
+      "file": "File",
+      "importDate": "Import Date",
+      "separator": "Separator",
+      "owner": "Owner",
+      "uploader": "Uploader",
+      "importFor": "Import journal for user:"
+    },
+    "importFor": "Import journal for user:"
+  }
+}
