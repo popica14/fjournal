@@ -18,7 +18,7 @@ public class MealDTO implements Serializable {
 
     private Long quantity;
 
-    private Long portionSize;
+    private String portionSize;
 
     @NotNull
     private MealType type;
@@ -65,11 +65,11 @@ public class MealDTO implements Serializable {
         this.quantity = quantity;
     }
 
-    public Long getPortionSize() {
+    public String getPortionSize() {
         return portionSize;
     }
 
-    public void setPortionSize(Long portionSize) {
+    public void setPortionSize(String portionSize) {
         this.portionSize = portionSize;
     }
 
@@ -169,7 +169,7 @@ public class MealDTO implements Serializable {
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
             ", quantity=" + getQuantity() +
-            ", portionSize=" + getPortionSize() +
+            ", portionSize='" + getPortionSize() + "'" +
             ", type='" + getType() + "'" +
             ", date='" + getDate() + "'" +
             ", photo='" + getPhoto() + "'" +

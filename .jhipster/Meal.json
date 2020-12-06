@@ -4,9 +4,7 @@
     {
       "fieldName": "description",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "quantity",
@@ -20,16 +18,12 @@
       "fieldName": "type",
       "fieldType": "MealType",
       "fieldValues": "SNACK,BREAKFAST,LUNCH,DINNER",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "date",
       "fieldType": "Instant",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "photo",

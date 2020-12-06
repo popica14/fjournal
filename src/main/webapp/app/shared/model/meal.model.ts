@@ -5,7 +5,7 @@ export interface IMeal {
   id?: number;
   description?: string;
   quantity?: number;
-  portionSize?: number;
+  portionSize?: string;
   type?: MealType;
   date?: Moment;
   photoContentType?: string;
@@ -22,7 +22,7 @@ export class Meal implements IMeal {
     public id?: number,
     public description?: string,
     public quantity?: number,
-    public portionSize?: number,
+    public portionSize?: string,
     public type?: MealType,
     public date?: Moment,
     public photoContentType?: string,

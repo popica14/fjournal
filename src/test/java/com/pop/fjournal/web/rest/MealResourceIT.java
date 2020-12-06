@@ -42,8 +42,8 @@ public class MealResourceIT {
     private static final Long DEFAULT_QUANTITY = 1L;
     private static final Long UPDATED_QUANTITY = 2L;
 
-    private static final Long DEFAULT_PORTION_SIZE = 1L;
-    private static final Long UPDATED_PORTION_SIZE = 2L;
+    private static final String DEFAULT_PORTION_SIZE = "AAAAAAAAAA";
+    private static final String UPDATED_PORTION_SIZE = "BBBBBBBBBB";
 
     private static final MealType DEFAULT_TYPE = MealType.SNACK;
     private static final MealType UPDATED_TYPE = MealType.BREAKFAST;
@@ -249,7 +249,7 @@ public class MealResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(meal.getId().intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.intValue())))
-            .andExpect(jsonPath("$.[*].portionSize").value(hasItem(DEFAULT_PORTION_SIZE.intValue())))
+            .andExpect(jsonPath("$.[*].portionSize").value(hasItem(DEFAULT_PORTION_SIZE)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
@@ -272,7 +272,7 @@ public class MealResourceIT {
             .andExpect(jsonPath("$.id").value(meal.getId().intValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY.intValue()))
-            .andExpect(jsonPath("$.portionSize").value(DEFAULT_PORTION_SIZE.intValue()))
+            .andExpect(jsonPath("$.portionSize").value(DEFAULT_PORTION_SIZE))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))

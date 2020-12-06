@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Meal(0, 'AAAAAAA', 0, 0, MealType.SNACK, currentDate, 'image/png', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Meal(0, 'AAAAAAA', 0, 'AAAAAAA', MealType.SNACK, currentDate, 'image/png', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -72,7 +72,7 @@ describe('Service Tests', () => {
           {
             description: 'BBBBBB',
             quantity: 1,
-            portionSize: 1,
+            portionSize: 'BBBBBB',
             type: 'BBBBBB',
             date: currentDate.format(DATE_TIME_FORMAT),
             photo: 'BBBBBB',
@@ -102,7 +102,7 @@ describe('Service Tests', () => {
           {
             description: 'BBBBBB',
             quantity: 1,
-            portionSize: 1,
+            portionSize: 'BBBBBB',
             type: 'BBBBBB',
             date: currentDate.format(DATE_TIME_FORMAT),
             photo: 'BBBBBB',

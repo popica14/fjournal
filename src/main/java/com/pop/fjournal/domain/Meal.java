@@ -34,7 +34,7 @@ public class Meal implements Serializable {
     private Long quantity;
 
     @Column(name = "portion_size")
-    private Long portionSize;
+    private String portionSize;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -100,16 +100,16 @@ public class Meal implements Serializable {
         this.quantity = quantity;
     }
 
-    public Long getPortionSize() {
+    public String getPortionSize() {
         return portionSize;
     }
 
-    public Meal portionSize(Long portionSize) {
+    public Meal portionSize(String portionSize) {
         this.portionSize = portionSize;
         return this;
     }
 
-    public void setPortionSize(Long portionSize) {
+    public void setPortionSize(String portionSize) {
         this.portionSize = portionSize;
     }
 
@@ -241,7 +241,7 @@ public class Meal implements Serializable {
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
             ", quantity=" + getQuantity() +
-            ", portionSize=" + getPortionSize() +
+            ", portionSize='" + getPortionSize() + "'" +
             ", type='" + getType() + "'" +
             ", date='" + getDate() + "'" +
             ", photo='" + getPhoto() + "'" +
