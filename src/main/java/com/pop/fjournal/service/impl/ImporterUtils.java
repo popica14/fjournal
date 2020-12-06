@@ -11,6 +11,8 @@ import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +45,7 @@ public final class ImporterUtils {
             String[] entryProperties = journalEntry.split(separator);
 
             String dateText = entryProperties[0];
-            Calendar date = getCalendarDateFromText(dateText);
+            ZonedDateTime date = getDateFromText(dateText);
 
             String breakfast = entryProperties[1];
             String breakfastQuantity = entryProperties[2];
@@ -72,40 +74,44 @@ public final class ImporterUtils {
         }
     }
 
-    private static Calendar getCalendarDateFromText(String dateText) throws ParseException {
+    private static ZonedDateTime getDateFromText(String dateText) throws ParseException {
+
         Calendar calendar = new GregorianCalendar();
         DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         Date date = formatter.parse(dateText);
         calendar.setTime(date);
-        return calendar;
+
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        dateTime = date.toInstant().atZone(dateTime.getZone());
+        return dateTime;
     }
 
     private static Meal getNightShiftFromText(Calendar date, User owner, String nightShift) {
         return new Meal();
     }
 
-    private static Meal getSnackFromText(Calendar date, User owner, String breakfast,
+    private static Meal getSnackFromText(ZonedDateTime date, User owner, String breakfast,
                                          String breakfastQuantity) {
         return new Meal();
     }
 
-    private static Meal getDinnerFromText(Calendar date, User owner, String breakfast,
+    private static Meal getDinnerFromText(ZonedDateTime date, User owner, String breakfast,
                                           String breakfastQuantity) {
         return new Meal();
     }
 
-    private static Meal getLunchFromText(Calendar date, User owner, String breakfast,
+    private static Meal getLunchFromText(ZonedDateTime date, User owner, String breakfast,
                                          String breakfastQuantity) {
         return new Meal();
     }
 
-    private static Meal getBreakfastFromText(Calendar date, User owner, String breakfast,
+    private static Meal getBreakfastFromText(ZonedDateTime date, User owner, String breakfast,
                                              String breakfastQuantity) {
 
         //1 cafea + lapte veg., 06.30: Toast cu Avocado si ou
         Meal breakfastMeal = new Meal();
-        getMealDateAndTime(date, breakfast);
-        breakfastMeal.setDate(date.toInstant());
+
+        breakfastMeal.setDate(getMealDateAndTime(date, breakfast));
 
         breakfastMeal.setType(MealType.BREAKFAST);
         breakfastMeal.setMyMeal(owner);
@@ -116,18 +122,14 @@ public final class ImporterUtils {
         return breakfastMeal;
     }
 
-    private static void getMealDateAndTime(Calendar date, String mealText) {
+    private static ZonedDateTime getMealDateAndTime(ZonedDateTime date, String mealText) {
         int hour = getHourFromMealText(mealText);
         int minute = getMinuteFromMealText(mealText);
-        if (hour >= 12) {
-            hour = 6;
-            minute = 49;
-        }
-        int i1 = date.get(11);
-        int i = date.get(12);
 
-        date.set(Calendar.HOUR_OF_DAY, hour);
-        date.set(Calendar.MINUTE, minute);
+        date = date.withHour(hour);
+        date = date.withMinute(minute);
+
+        return date;
     }
 
     private static String getDescriptionFromText(String breakfast) {

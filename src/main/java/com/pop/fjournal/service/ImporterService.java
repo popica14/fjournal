@@ -2,6 +2,7 @@ package com.pop.fjournal.service;
 
 import com.pop.fjournal.service.dto.ImporterDTO;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface ImporterService {
      * @param importerDTO the entity to save.
      * @return the persisted entity.
      */
-    ImporterDTO save(ImporterDTO importerDTO);
+    ImporterDTO save(ImporterDTO importerDTO) throws IOException;
 
     /**
      * Get all the importers.
