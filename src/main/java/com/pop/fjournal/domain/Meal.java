@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import com.pop.fjournal.domain.enumeration.MealType;
 
@@ -43,7 +43,7 @@ public class Meal implements Serializable {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    private Instant date;
+    private ZonedDateTime date;
 
     @Lob
     @Column(name = "photo")
@@ -126,16 +126,16 @@ public class Meal implements Serializable {
         this.type = type;
     }
 
-    public Instant getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public Meal date(Instant date) {
+    public Meal date(ZonedDateTime date) {
         this.date = date;
         return this;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

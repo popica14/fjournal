@@ -1,6 +1,6 @@
 package com.pop.fjournal.service.dto;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import javax.persistence.Lob;
@@ -17,7 +17,7 @@ public class WeightDTO implements Serializable {
     @DecimalMax(value = "150")
     private Float value;
 
-    private Instant date;
+    private ZonedDateTime date;
 
     @Lob
     private byte[] photo;
@@ -46,11 +46,11 @@ public class WeightDTO implements Serializable {
         this.value = value;
     }
 
-    public Instant getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

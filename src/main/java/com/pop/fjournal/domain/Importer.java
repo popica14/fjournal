@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 /**
  * A Importer.
@@ -33,7 +33,7 @@ public class Importer implements Serializable {
 
     @NotNull
     @Column(name = "import_date", nullable = false)
-    private Instant importDate;
+    private ZonedDateTime importDate;
 
     @Column(name = "jhi_separator")
     private String separator;
@@ -81,16 +81,16 @@ public class Importer implements Serializable {
         this.fileContentType = fileContentType;
     }
 
-    public Instant getImportDate() {
+    public ZonedDateTime getImportDate() {
         return importDate;
     }
 
-    public Importer importDate(Instant importDate) {
+    public Importer importDate(ZonedDateTime importDate) {
         this.importDate = importDate;
         return this;
     }
 
-    public void setImportDate(Instant importDate) {
+    public void setImportDate(ZonedDateTime importDate) {
         this.importDate = importDate;
     }
 

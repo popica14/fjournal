@@ -1,6 +1,6 @@
 package com.pop.fjournal.service.dto;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import javax.persistence.Lob;
@@ -17,7 +17,7 @@ public class ImporterDTO implements Serializable {
 
     private String fileContentType;
     @NotNull
-    private Instant importDate;
+    private ZonedDateTime importDate;
 
     private String separator;
 
@@ -54,11 +54,11 @@ public class ImporterDTO implements Serializable {
         this.fileContentType = fileContentType;
     }
 
-    public Instant getImportDate() {
+    public ZonedDateTime getImportDate() {
         return importDate;
     }
 
-    public void setImportDate(Instant importDate) {
+    public void setImportDate(ZonedDateTime importDate) {
         this.importDate = importDate;
     }
 

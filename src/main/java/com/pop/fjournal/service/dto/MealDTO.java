@@ -1,6 +1,6 @@
 package com.pop.fjournal.service.dto;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import javax.persistence.Lob;
@@ -24,7 +24,7 @@ public class MealDTO implements Serializable {
     private MealType type;
 
     @NotNull
-    private Instant date;
+    private ZonedDateTime date;
 
     @Lob
     private byte[] photo;
@@ -81,11 +81,11 @@ public class MealDTO implements Serializable {
         this.type = type;
     }
 
-    public Instant getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

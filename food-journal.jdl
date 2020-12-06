@@ -4,7 +4,7 @@ entity Meal {
     quantity Long
     portionSize String
     type MealType required
-    date Instant required
+    date ZonedDateTime required
     photo ImageBlob
     calories Long
     comment String
@@ -13,7 +13,7 @@ entity Meal {
 
 entity Weight{
     value Float min(40) max(150) required
-	date Instant 
+	date ZonedDateTime 
     photo ImageBlob 
     observation String
 }
@@ -21,7 +21,7 @@ entity Weight{
 entity Importer
 {
     file AnyBlob
-    importDate Instant required
+    importDate ZonedDateTime required
     separator String
 }
 

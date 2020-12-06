@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 /**
  * A Weight.
@@ -31,7 +31,7 @@ public class Weight implements Serializable {
     private Float value;
 
     @Column(name = "date")
-    private Instant date;
+    private ZonedDateTime date;
 
     @Lob
     @Column(name = "photo")
@@ -69,16 +69,16 @@ public class Weight implements Serializable {
         this.value = value;
     }
 
-    public Instant getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public Weight date(Instant date) {
+    public Weight date(ZonedDateTime date) {
         this.date = date;
         return this;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

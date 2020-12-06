@@ -8,7 +8,7 @@
     },
     {
       "fieldName": "importDate",
-      "fieldType": "Instant",
+      "fieldType": "ZonedDateTime",
       "fieldValidateRules": ["required"]
     },
     {
