@@ -3,22 +3,19 @@ package com.pop.fjournal.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Optional;
 
 import com.pop.fjournal.domain.Meal;
 import com.pop.fjournal.domain.User;
 import com.pop.fjournal.domain.enumeration.MealType;
-import com.pop.fjournal.repository.UserRepository;
 import com.pop.fjournal.security.SecurityUtils;
+import com.pop.fjournal.service.dto.MealDTO;
+import com.pop.fjournal.service.dto.WeightDTO;
+import com.pop.fjournal.service.dto.utilDtos.ImporterEntry;
 import com.pop.fjournal.service.impl.ImporterUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test class for the {@link SecurityUtils} utility class.
@@ -36,8 +33,11 @@ public class ImporterUtilsUnitTest {
     Meal snackTest;
     Meal dinnerTest;
     Meal lunchTest;
-    int mealCountTest = 3;
+    int mealCountTest = 4;
     User testUser;
+    WeightDTO weightDTO;
+    Float weightTest = 63.2f;
+    ZonedDateTime weightTestDateTime;
 
     @BeforeEach
     public void init() {
@@ -50,12 +50,14 @@ public class ImporterUtilsUnitTest {
         testDateTime = testDateTime.withSecond(0);
         testDateTime = testDateTime.withNano(0);
 
-
+         weightTestDateTime= testDateTime.minusMinutes(15);
+        weightDTO =  new WeightDTO();
 
         breakfastTest = new Meal();
         breakfastTest.setDescription("1 cafea + lapte veg., Toast cu Avocado si ou");
         breakfastTest.setType(MealType.BREAKFAST);
         breakfastTest.setDate(testDateTime);
+        breakfastTest.setPortionSize("2 felii, 50 g");
 
         lunchTest = new Meal();
         lunchTest.setDescription("Ciuperci cu orez mexican");
@@ -69,17 +71,30 @@ public class ImporterUtilsUnitTest {
 
     @Test
     public void testImporterParserMethod() throws ParseException {
+        ImporterEntry
+            result  = ImporterUtils.getMealsAndWeightFromJournalTextEntry(testEntry, testSeparator, testUser);
 
-        List<Meal> mealFromJournalTextEntry = ImporterUtils.getMealsFromJournalTextEntry(testEntry, testSeparator, testUser);
+        List<MealDTO> mealFromJournalTextEntryList = result.getMeals();
+        List<WeightDTO> weightFromJournalTextEntryList = result.getWeights();
 
-//        assertThat(mealFromJournalTextEntry.size()).isEqualTo(mealCountTest);
+        assertThat(weightFromJournalTextEntryList.size()).isEqualTo(1);
 
-        Meal breakfastResult = mealFromJournalTextEntry.get(0);
+        WeightDTO weightFromJournalTextEntry = weightFromJournalTextEntryList.get(0);
+
+        assertThat(weightFromJournalTextEntry.getValue()).isEqualTo(weightTest);
+        assertThat(weightFromJournalTextEntry.getDate()).isEqualTo(weightTestDateTime);
+        assertThat(weightFromJournalTextEntry.getMyWeigthLogin()).isEqualTo(testUser.getLogin());
+
+        assertThat(mealFromJournalTextEntryList.size()).isEqualTo(mealCountTest);
+
+        MealDTO breakfastResult = mealFromJournalTextEntryList.get(0);
 
         assertThat(breakfastResult.getDescription()).isEqualTo(breakfastTest.getDescription());
         assertThat(breakfastResult.getDate()).isEqualTo(breakfastTest.getDate());
         assertThat(breakfastResult.getType()).isEqualTo(breakfastTest.getType());
-        assertThat(breakfastResult.getMyMeal().getEmail()).isEqualTo(testUser.getEmail());
+        assertThat(breakfastResult.getMyMealId()).isEqualTo(testUser.getId());
+        assertThat(breakfastResult.getMyMealLogin()).isEqualTo(testUser.getLogin());
+        assertThat(breakfastResult.getPortionSize()).isEqualTo(breakfastTest.getPortionSize());
 
     }
 }

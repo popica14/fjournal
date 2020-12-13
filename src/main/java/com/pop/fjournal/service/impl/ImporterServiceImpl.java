@@ -3,7 +3,12 @@ package com.pop.fjournal.service.impl;
 import com.pop.fjournal.service.ImporterService;
 import com.pop.fjournal.domain.Importer;
 import com.pop.fjournal.repository.ImporterRepository;
+import com.pop.fjournal.service.MealService;
+import com.pop.fjournal.service.WeightService;
 import com.pop.fjournal.service.dto.ImporterDTO;
+import com.pop.fjournal.service.dto.MealDTO;
+import com.pop.fjournal.service.dto.WeightDTO;
+import com.pop.fjournal.service.dto.utilDtos.ImporterEntry;
 import com.pop.fjournal.service.mapper.ImporterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,18 +35,43 @@ public class ImporterServiceImpl implements ImporterService {
 
     private final ImporterMapper importerMapper;
 
-    public ImporterServiceImpl(ImporterRepository importerRepository, ImporterMapper importerMapper) {
+    private final MealService mealsService;
+    private WeightService weightsService;
+
+    public ImporterServiceImpl(ImporterRepository importerRepository, ImporterMapper importerMapper,
+                               MealService mealsService, WeightService weightsService) {
         this.importerRepository = importerRepository;
         this.importerMapper = importerMapper;
+        this.mealsService = mealsService;
+        this.weightsService = weightsService;
     }
 
     @Override
     public ImporterDTO save(ImporterDTO importerDTO) throws IOException {
         log.debug("Request to save Importer : {}", importerDTO);
         Importer importer = importerMapper.toEntity(importerDTO);
-        ImporterUtils.importJournal(importer);
+
+        saveImporterResults(importer);
+
         importer = importerRepository.save(importer);
         return importerMapper.toDto(importer);
+    }
+
+    private void saveImporterResults(Importer importer) throws IOException {
+        log.debug("Request to save meals and weights for : {}", importer.getOwner());
+
+        ImporterEntry mealsAndWeightsFromImporter = ImporterUtils.importJournal(importer);
+
+        List<MealDTO> meals = mealsAndWeightsFromImporter.getMeals();
+        List<WeightDTO> weights = mealsAndWeightsFromImporter.getWeights();
+
+        for (MealDTO m : meals) {
+            this.mealsService.save(m);
+        }
+
+        for (WeightDTO weight : weights) {
+            this.weightsService.save(weight);
+        }
     }
 
     @Override
@@ -52,7 +82,6 @@ public class ImporterServiceImpl implements ImporterService {
             .map(importerMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)

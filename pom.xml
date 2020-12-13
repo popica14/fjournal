@@ -317,6 +317,10 @@
             <artifactId>cucumber-spring</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
