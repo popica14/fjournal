@@ -49,7 +49,11 @@ public final class ImporterUtils {
                                                                       User owner
     ) throws ParseException {
         try {
-
+            //22.09.2020###1 cafea + lapte veg., 06.30: Toast cu Avocado si ou###2 felii, 50 g###
+            // 13.00: Ciuperci cu orez mexican###150g orez + leg###
+            // 16.30: 1 banana######
+            // 19.00: Supa crema linte###350 ml###
+            // 06.15: 63,2 kg###
             List<MealDTO> retValMealList = new ArrayList<>();
             List<WeightDTO> retValWeightsList = new ArrayList<>();
 
@@ -60,14 +64,30 @@ public final class ImporterUtils {
 
             String breakfast = entryProperties[1];
             String breakfastQuantity = entryProperties[2];
-            retValMealList.add(getBreakfastFromText(date, owner, breakfast, breakfastQuantity));
+            if (getDateAndTimeFromText(date, breakfast).getHour() < 10) {
+                retValMealList.add(getBreakfastFromText(date, owner, breakfast, breakfastQuantity));
+            } else {
+                retValMealList.add(getSnackFromText(date, owner, breakfast, breakfastQuantity));
+            }
 
             String lunch = entryProperties[3];
             String lunchQuantity = entryProperties[4];
-            retValMealList.add(getLunchFromText(date, owner, lunch, lunchQuantity));
+            int lunchHoursInDay = getDateAndTimeFromText(date, lunch).getHour();
+            if (lunchHoursInDay > 10 && lunchHoursInDay < 12) {
+                retValMealList.add(getSnackFromText(date, owner, breakfast, breakfastQuantity));
+            } else {
+                retValMealList.add(getLunchFromText(date, owner, lunch, lunchQuantity));
+            }
 
             String dinner = entryProperties[5];
             String dinnerQuantity = entryProperties[6];
+            getDateAndTimeFromText(date, dinner).getHour();
+            if (lunchHoursInDay > 10 && lunchHoursInDay < 12) {
+                retValMealList.add(getSnackFromText(date, owner, breakfast, breakfastQuantity));
+            } else {
+                retValMealList.add(getLunchFromText(date, owner, lunch, lunchQuantity));
+            }
+
             retValMealList.add(getDinnerFromText(date, owner, dinner, dinnerQuantity));
 
             String snack = entryProperties[7];
@@ -94,7 +114,7 @@ public final class ImporterUtils {
 
     private static WeightDTO getWeightDTOFromString(ZonedDateTime date, User owner, String entryProperty) {
         WeightDTO weightDTO = new WeightDTO();
-        weightDTO.setDate(getDateAndTimeFromText(date,entryProperty));
+        weightDTO.setDate(getDateAndTimeFromText(date, entryProperty));
 
         weightDTO.setMyWeigthId(owner.getId());
         weightDTO.setMyWeigthLogin(owner.getLogin());
@@ -102,7 +122,7 @@ public final class ImporterUtils {
         if (weight > 0f) {
             weightDTO.setObservation("from importer");
         } else {
-            weight=60f;
+            weight = 60f;
             weightDTO.setObservation("from importer/ERROR: parsing weight");
         }
         weightDTO.setValue(weight);
@@ -115,7 +135,7 @@ public final class ImporterUtils {
         float weight;
         String[] split = entryProperty.split(separator);
         try {
-            weight = Float.parseFloat(split[1].replace(',','.'));
+            weight = Float.parseFloat(split[1].replace(',', '.'));
         } catch (NumberFormatException e) {
             weight = 0f;
         }
@@ -138,35 +158,53 @@ public final class ImporterUtils {
         return new MealDTO();
     }
 
-    private static MealDTO getSnackFromText(ZonedDateTime date, User owner, String breakfast,
+    private static MealDTO getSnackFromText(ZonedDateTime date, User owner, String snack,
                                             String breakfastQuantity) {
-        return new MealDTO();
+        MealDTO snackMeal = new MealDTO();
+        snackMeal.setType(MealType.SNACK);
+
+        setMealProperties(date, owner, snack, breakfastQuantity, snackMeal);
+
+        return snackMeal;
     }
 
-    private static MealDTO getDinnerFromText(ZonedDateTime date, User owner, String breakfast,
+    private static MealDTO getDinnerFromText(ZonedDateTime date, User owner, String dinner,
                                              String breakfastQuantity) {
-        return new MealDTO();
+        MealDTO dinnerMeal = new MealDTO();
+        dinnerMeal.setType(MealType.LUNCH);
+
+        setMealProperties(date, owner, dinner, breakfastQuantity, dinnerMeal);
+
+        return dinnerMeal;
     }
 
-    private static MealDTO getLunchFromText(ZonedDateTime date, User owner, String breakfast,
+    private static MealDTO getLunchFromText(ZonedDateTime date, User owner, String lunch,
                                             String breakfastQuantity) {
-        return new MealDTO();
+        MealDTO lunchMeal = new MealDTO();
+        lunchMeal.setType(MealType.LUNCH);
+
+        setMealProperties(date, owner, lunch, breakfastQuantity, lunchMeal);
+
+        return lunchMeal;
+    }
+
+    private static void setMealProperties(ZonedDateTime date, User owner, String lunch, String breakfastQuantity,
+                                          MealDTO lunchMeal) {
+        lunchMeal.setDate(getDateAndTimeFromText(date, lunch));
+        lunchMeal.setPortionSize(breakfastQuantity);
+        lunchMeal.setMyMealId(owner.getId());
+        lunchMeal.setMyMealLogin(owner.getLogin());
+
+        String description = getDescriptionFromText(lunch);
+        lunchMeal.setDescription(description);
     }
 
     private static MealDTO getBreakfastFromText(ZonedDateTime date, User owner, String breakfast,
                                                 String breakfastQuantity) {
 
-        //1 cafea + lapte veg., 06.30: Toast cu Avocado si ou###2 felii, 50 g###
         MealDTO breakfastMeal = new MealDTO();
-
-        breakfastMeal.setDate(getDateAndTimeFromText(date, breakfast));
-        breakfastMeal.setPortionSize(breakfastQuantity);
         breakfastMeal.setType(MealType.BREAKFAST);
-        breakfastMeal.setMyMealId(owner.getId());
-        breakfastMeal.setMyMealLogin(owner.getLogin());
-
-        String description = getDescriptionFromText(breakfast);
-        breakfastMeal.setDescription(description);
+        setMealProperties(date, owner, breakfast, breakfastQuantity, breakfastMeal);
 
         return breakfastMeal;
     }

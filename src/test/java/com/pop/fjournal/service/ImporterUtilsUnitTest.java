@@ -62,6 +62,14 @@ public class ImporterUtilsUnitTest {
         lunchTest = new Meal();
         lunchTest.setDescription("Ciuperci cu orez mexican");
         lunchTest.setType(MealType.LUNCH);
+        lunchTest.setDate(testDateTime.withHour(13).withMinute(0));
+        lunchTest.setPortionSize("150g orez + leg");
+
+        dinnerTest = new Meal();
+        dinnerTest.setDescription("Supa crema linte");
+        dinnerTest.setType(MealType.DINNER);
+        dinnerTest.setDate(testDateTime.withHour(19).withMinute(0));
+        dinnerTest.setPortionSize("350 ml");
 
 
         testUser = new User();
@@ -88,6 +96,8 @@ public class ImporterUtilsUnitTest {
         assertThat(mealFromJournalTextEntryList.size()).isEqualTo(mealCountTest);
 
         MealDTO breakfastResult = mealFromJournalTextEntryList.get(0);
+        MealDTO lunchResult = mealFromJournalTextEntryList.get(1);
+        MealDTO dinnerResult = mealFromJournalTextEntryList.get(2);
 
         assertThat(breakfastResult.getDescription()).isEqualTo(breakfastTest.getDescription());
         assertThat(breakfastResult.getDate()).isEqualTo(breakfastTest.getDate());
@@ -95,6 +105,20 @@ public class ImporterUtilsUnitTest {
         assertThat(breakfastResult.getMyMealId()).isEqualTo(testUser.getId());
         assertThat(breakfastResult.getMyMealLogin()).isEqualTo(testUser.getLogin());
         assertThat(breakfastResult.getPortionSize()).isEqualTo(breakfastTest.getPortionSize());
+
+        assertThat(lunchResult.getDescription()).isEqualTo(lunchTest.getDescription());
+        assertThat(lunchResult.getDate()).isEqualTo(lunchTest.getDate());
+        assertThat(lunchResult.getType()).isEqualTo(lunchTest.getType());
+        assertThat(lunchResult.getMyMealId()).isEqualTo(testUser.getId());
+        assertThat(lunchResult.getMyMealLogin()).isEqualTo(testUser.getLogin());
+        assertThat(lunchResult.getPortionSize()).isEqualTo(lunchTest.getPortionSize());
+
+        assertThat(dinnerResult.getDescription()).isEqualTo(dinnerTest.getDescription());
+        assertThat(dinnerResult.getDate()).isEqualTo(dinnerTest.getDate());
+        assertThat(dinnerResult.getType()).isEqualTo(dinnerTest.getType());
+        assertThat(dinnerResult.getMyMealId()).isEqualTo(testUser.getId());
+        assertThat(dinnerResult.getMyMealLogin()).isEqualTo(testUser.getLogin());
+        assertThat(dinnerResult.getPortionSize()).isEqualTo(dinnerTest.getPortionSize());
 
     }
 }
